@@ -7,12 +7,7 @@ export interface Coords {
     y: number;
 }
 
-export enum WalkerStrategy {
-    random = 'random',
-    tendency = 'tendency',
-}
-
-export interface IEntity<S> {
-    update: (strategy: S) => void;
+export interface IEntity {
+    update: () => void;
     render: () => void;
 }

@@ -1,9 +1,9 @@
-import { Update, Render } from './models';
+import { Update, Render } from '@/modules/ecosystem/models/ecosystemModels';
 
 const timestamp = () =>
     window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
 
-export const createBlock = (update: Update, render: Render) => {
+export const animete = (update: Update, render: Render) => {
     let now;
     let delta;
     let last = timestamp();
