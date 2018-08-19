@@ -1,32 +1,36 @@
-import { Renderer, Coords, IEntity } from '@/modules/ecosystem/models/ecosystemModels';
-import { Strategy } from '@/modules/ecosystem/services/strategies/Strategy';
+import { Renderer, IEntity } from '@/modules/ecosystem/models/ecosystemModels';
+import { Vector } from '@/modules/ecosystem/services/Vector';
+import { Entity } from '@/modules/ecosystem/services/Entity';
+import { getRand } from '@/modules/ecosystem/services/random';
 
-export class Walker implements IEntity {
-    public coords!: Coords;
+// TODO: add tendency that gets bigger when mouse is closer
 
-    private readonly size: number = 5;
-    private renderer!: Renderer;
+export class Walker extends Entity implements IEntity {
+    private _tendency!: Vector | null;
 
-    constructor(private walkerStrategy: Strategy) {}
-
-    public init(renderer: Renderer, coords: Coords) {
-        this.renderer = renderer;
-        this.coords = coords;
+    constructor(
+        protected renderer: Renderer,
+        protected location: Vector,
+        protected size: number = 5,
+        private step: Vector = new Vector(1, 1),
+        private readonly tendencyProbability: number = 0.2,
+    ) {
+        super(location, renderer, size);
     }
 
-    public set strategy(strategy: Strategy) {
-        this.walkerStrategy = strategy;
-    }
-
-    public get strategy() {
-        return this.walkerStrategy;
+    set tendency(t: Vector | null) {
+        this._tendency = t;
     }
 
     public update() {
-        this.walkerStrategy.update(this.coords);
-    }
+        if (this._tendency && getRand(0, 1) < this.tendencyProbability) {
+            this.location = this.location.add(
+                this._tendency.sub(this.location).isSmallerThan(0) ? this.step.mult(-1) : this.step,
+            );
 
-    public render() {
-        this.renderer.fillRect(this.coords.x, this.coords.y, this.size, this.size);
+            return;
+        }
+
+        this.location = this.location.add(Vector.randomWithinRange(this.step));
     }
 }

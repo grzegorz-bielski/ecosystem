@@ -1,17 +1,17 @@
 <template>
     <div @mousemove="mouseMove">
-        <h2>{{ name }}: {{ walker.strategy.name }}</h2>
+        <h2>{{ name }}: {{ strategy }}</h2>
         <canvas width="600" height="600" ref="block"/>
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { Vector } from '@/modules/ecosystem/services/Vector';
 import { Walker } from '@/modules/ecosystem/services/Walker';
 import { animete } from '@/modules/ecosystem/services/animete';
-import { RandomStrategy } from '@/modules/ecosystem/services/strategies/RandomStrategy';
 
-const getMousePos = (canvas: HTMLCanvasElement, event: MouseEvent) => {
+const getMouseCoords = (canvas: HTMLCanvasElement, event: MouseEvent) => {
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
@@ -25,7 +25,8 @@ const getMousePos = (canvas: HTMLCanvasElement, event: MouseEvent) => {
 @Component
 export default class WalkerBlock extends Vue {
     private readonly name = 'Walker';
-    private walker = new Walker(new RandomStrategy());
+    private strategy = 'random';
+    private walker!: Walker;
     private canvas!: HTMLCanvasElement;
 
     public mounted() {
@@ -36,7 +37,7 @@ export default class WalkerBlock extends Vue {
             return;
         }
 
-        this.walker.init(ctx, { x: this.canvas.width / 2, y: this.canvas.height / 2 });
+        this.walker = new Walker(ctx, new Vector(this.canvas.width / 2, this.canvas.height / 2));
 
         animete(
             () => this.walker.update(),
@@ -48,12 +49,24 @@ export default class WalkerBlock extends Vue {
     }
 
     public mouseMove(e: MouseEvent) {
-        if ((e.target as HTMLCanvasElement).nodeName !== 'CANVAS') {
-            this.walker.strategy = new RandomStrategy();
+        if (!this.walker) {
             return;
         }
 
-        this.walker.strategy = new RandomStrategy(getMousePos(this.canvas, e), 'tendency');
+        if ((e.target as HTMLCanvasElement).nodeName !== 'CANVAS') {
+            this.walker.tendency = null;
+            this.strategy = 'random';
+            return;
+        }
+
+        this.walker.tendency = Vector.fromCoords(getMouseCoords(this.canvas, e));
+        this.strategy = 'random / tendency';
     }
 }
 </script>
+
+<style scoped>
+canvas {
+    background-color: #d1bcd4;
+}
+</style>
