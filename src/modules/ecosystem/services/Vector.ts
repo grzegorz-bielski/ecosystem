@@ -8,8 +8,8 @@ export class Vector {
         return new Vector(x, y);
     }
 
-    public static randomWithinRange(v: Vector) {
-        return new Vector(getRand(-v.x, v.x), getRand(-v.y, v.y));
+    public static randomWithinRange(step: number) {
+        return new Vector(getRand(-step, step), getRand(-step, step));
     }
 
     constructor(public x: number, public y: number) {}
@@ -30,28 +30,21 @@ export class Vector {
         return new Vector(this.x / n, this.y / n);
     }
 
-    public isSmallerThan(n: number) {
-        return this.x < n && this.y < n;
+    public clear() {
+        return this.mult(0);
     }
 
-    public normalize() {
+    public normalize(): Vector {
         const magnitude = this.mag();
 
-        if (magnitude > 0) {
-            return this.div(magnitude);
-        }
+        return magnitude > 0 ? this.div(magnitude) : this;
     }
 
     public limit(magLimit: number) {
-        if (this.mag() > magLimit) {
-            return this.normalize()!.div(magLimit);
-        }
+        return this.mag() > magLimit ? this.normalize().div(magLimit) : this;
     }
 
-    // magnitude - vector length
-    private mag() {
+    public mag() {
         return Math.sqrt(this.x ** 2 + this.y ** 2);
     }
 }
-
-// location.add(velocity.add(accelaration).limit(10));

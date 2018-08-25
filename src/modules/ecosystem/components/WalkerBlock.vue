@@ -7,6 +7,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
 import { Vector } from '@/modules/ecosystem/services/Vector';
 import { Walker } from '@/modules/ecosystem/services/Walker';
 import { animete } from '@/modules/ecosystem/services/animete';
@@ -37,15 +38,9 @@ export default class WalkerBlock extends Vue {
             return;
         }
 
-        this.walker = new Walker(ctx, new Vector(this.canvas.width / 2, this.canvas.height / 2));
+        this.walker = new Walker(ctx, this.canvas, this.canvas.width / 2, this.canvas.height / 2);
 
-        animete(
-            () => this.walker.update(),
-            () => {
-                // ctx.clearRect(0, 0, canvas.width, canvas.height);
-                this.walker.render();
-            },
-        );
+        animete(() => this.walker.update().render());
     }
 
     public mouseMove(e: MouseEvent) {

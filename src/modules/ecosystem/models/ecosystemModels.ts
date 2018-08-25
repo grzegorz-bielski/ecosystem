@@ -7,7 +7,37 @@ export interface Coords {
     y: number;
 }
 
+export enum RenderTypes {
+    Rect = 'rect',
+    Circle = 'circle',
+}
+
+interface PhysicsConstants {
+    frictionCoefficient: number;
+    dragCoefficient: number;
+}
+
+interface PhysicsVariables {
+    width: number;
+    height: number;
+    mass: number;
+}
+
+interface Container {
+    width: number;
+    height: number;
+}
+
+export interface Options {
+    container: Container;
+    constants: PhysicsConstants;
+    variables: PhysicsVariables;
+    color: string;
+    topSpeed: number;
+    checkEdges: boolean;
+    type: RenderTypes;
+}
 export interface IEntity {
-    update: () => void;
-    render: () => void;
+    update: (options?: Options) => this;
+    render: (options?: Options) => this;
 }

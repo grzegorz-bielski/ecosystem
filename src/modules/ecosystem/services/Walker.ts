@@ -1,21 +1,36 @@
-import { Renderer, IEntity } from '@/modules/ecosystem/models/ecosystemModels';
+import { Renderer, IEntity, RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
 import { Vector } from '@/modules/ecosystem/services/Vector';
 import { Entity } from '@/modules/ecosystem/services/Entity';
 import { getRand } from '@/modules/ecosystem/services/random';
 
-// TODO: add tendency that gets bigger when mouse is closer
-
+// TODO: add tendency that's gets bigger when mouse is closer
 export class Walker extends Entity implements IEntity {
+    private readonly step: number = 1.5;
+    private readonly tendencyProbability: number = 0.2;
     private _tendency!: Vector | null;
 
-    constructor(
-        protected renderer: Renderer,
-        protected location: Vector,
-        protected size: number = 5,
-        private step: Vector = new Vector(1, 1),
-        private readonly tendencyProbability: number = 0.2,
-    ) {
-        super(location, renderer, size);
+    constructor(renderer: Renderer, container: HTMLCanvasElement, x: number, y: number) {
+        super(
+            renderer,
+            {
+                checkEdges: false,
+                topSpeed: 10,
+                color: 'black',
+                type: RenderTypes.Rect,
+                constants: {
+                    frictionCoefficient: 0.1,
+                    dragCoefficient: 0.01,
+                },
+                variables: {
+                    mass: 2,
+                    width: 5,
+                    height: 5,
+                },
+                container,
+            },
+            x,
+            y,
+        );
     }
 
     set tendency(t: Vector | null) {
@@ -24,13 +39,23 @@ export class Walker extends Entity implements IEntity {
 
     public update() {
         if (this._tendency && getRand(0, 1) < this.tendencyProbability) {
-            this.location = this.location.add(
-                this._tendency.sub(this.location).isSmallerThan(0) ? this.step.mult(-1) : this.step,
-            );
+            const delta = this._tendency.sub(this.location);
 
-            return;
+            const x = this.getStep(delta, 'x');
+            const y = this.getStep(delta, 'y');
+
+            this.location = this.location.add(new Vector(x, y));
+
+            return super.update();
         }
 
-        this.location = this.location.add(Vector.randomWithinRange(this.step));
+        const randomLocation = Vector.randomWithinRange(this.step);
+        this.location = this.location.add(randomLocation);
+
+        return super.update();
+    }
+
+    private getStep(delta: Vector, field: 'x' | 'y') {
+        return delta[field] < 0 ? -this.step : this.step;
     }
 }

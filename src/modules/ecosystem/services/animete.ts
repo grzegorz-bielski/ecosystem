@@ -1,9 +1,9 @@
-import { Update, Render } from '@/modules/ecosystem/models/ecosystemModels';
+import { Update } from '@/modules/ecosystem/models/ecosystemModels';
 
 const timestamp = () =>
     window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
 
-export const animete = (update: Update, render: Render) => {
+export const animete = (update: Update) => {
     let now;
     let delta;
     let last = timestamp();
@@ -12,7 +12,6 @@ export const animete = (update: Update, render: Render) => {
         now = timestamp();
         delta = (now - last) / 1000;
         update(delta);
-        render();
         last = now;
 
         requestAnimationFrame(frame);
