@@ -8,7 +8,8 @@ export const animete = (update: Update) => {
     let delta;
     let last = timestamp();
 
-    const frame = () => {
+    const frame = time => {
+        // console.log(time);
         now = timestamp();
         delta = (now - last) / 1000;
         update(delta);

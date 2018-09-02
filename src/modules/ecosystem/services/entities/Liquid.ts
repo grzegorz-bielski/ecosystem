@@ -1,14 +1,14 @@
 import { Renderer, IEntity, RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
-import { Entity } from '@/modules/ecosystem/services/Entity';
+import { Entity } from '@/modules/ecosystem/services/entities/Entity';
 
 export class Liquid extends Entity implements IEntity {
-    constructor(renderer: Renderer, x: number, y: number, width: number, height: number) {
+    constructor(renderer: Renderer, width: number, height: number, x: number, y: number) {
         super(
             renderer,
             {
                 checkEdges: false,
                 topSpeed: 10,
-                color: 'gray',
+                color: '#5ea2e8',
                 type: RenderTypes.Rect,
                 constants: {
                     frictionCoefficient: 0.1,

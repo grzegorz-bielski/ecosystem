@@ -1,5 +1,6 @@
 import { Coords } from '@/modules/ecosystem/models/ecosystemModels';
 import { getRand } from '@/modules/ecosystem/services/random';
+import { getRange } from '@/modules/ecosystem/services/constrain';
 
 export class Vector {
     public static fromCoords(coords: Coords) {
@@ -8,8 +9,9 @@ export class Vector {
         return new Vector(x, y);
     }
 
-    public static randomWithinRange(step: number) {
-        return new Vector(getRand(-step, step), getRand(-step, step));
+    public static randomWithinRange(step: number | number[]) {
+        const [min, max] = getRange(step);
+        return new Vector(getRand(min, max), getRand(min, max));
     }
 
     constructor(public x: number, public y: number) {}

@@ -2,10 +2,13 @@
   <div>
    <ul>
        <li>
-           <WalkerBlock></WalkerBlock>
+           <RandomBlock/>
        </li>
        <li>
-           <MoverBlock></MoverBlock>
+           <ForceBlockOne/>
+       </li>
+       <li>
+           <ForceBlockTwo/>
        </li>
    </ul>
   </div>
@@ -13,14 +16,28 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import WalkerBlock from '@/modules/ecosystem/components/WalkerBlock.vue';
-import MoverBlock from '@/modules/ecosystem/components/MoverBlock.vue';
+import ForceBlockOne from '@/modules/ecosystem/components/ForceBlockOne.vue';
+import ForceBlockTwo from '@/modules/ecosystem/components/ForceBlockTwo.vue';
+import RandomBlock from '@/modules/ecosystem/components/RandomBlock.vue';
 
 @Component({
     components: {
-        WalkerBlock,
-        MoverBlock,
+        RandomBlock,
+        ForceBlockOne,
+        ForceBlockTwo,
     },
 })
 export default class Blocks extends Vue {}
 </script>
+
+<style scoped>
+ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+li {
+    list-style-type: none;
+    margin: 1rem;
+}
+</style>

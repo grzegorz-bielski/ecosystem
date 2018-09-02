@@ -9,7 +9,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
 import { Vector } from '@/modules/ecosystem/services/Vector';
-import { Walker } from '@/modules/ecosystem/services/Walker';
+import { Walker } from '@/modules/ecosystem/services/entities/Walker';
 import { animete } from '@/modules/ecosystem/services/animete';
 
 const getMouseCoords = (canvas: HTMLCanvasElement, event: MouseEvent) => {
@@ -24,7 +24,7 @@ const getMouseCoords = (canvas: HTMLCanvasElement, event: MouseEvent) => {
 };
 
 @Component
-export default class WalkerBlock extends Vue {
+export default class RandomBlock extends Vue {
     private readonly name = 'Walker';
     private strategy = 'random';
     private walker!: Walker;
