@@ -11,17 +11,7 @@ import { RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
 import { Vector } from '@/modules/ecosystem/services/Vector';
 import { Walker } from '@/modules/ecosystem/services/entities/Walker';
 import { animete } from '@/modules/ecosystem/services/animete';
-
-const getMouseCoords = (canvas: HTMLCanvasElement, event: MouseEvent) => {
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-
-    return {
-        x: (event.clientX - rect.left) * scaleX,
-        y: (event.clientY - rect.top) * scaleY,
-    };
-};
+import { getMouseVector } from '@/modules/ecosystem/services/getMouseVector';
 
 @Component
 export default class RandomBlock extends Vue {
@@ -54,7 +44,7 @@ export default class RandomBlock extends Vue {
             return;
         }
 
-        this.walker.tendency = Vector.fromCoords(getMouseCoords(this.canvas, e));
+        this.walker.tendency = getMouseVector(this.canvas, e);
         this.strategy = 'random / tendency';
     }
 }

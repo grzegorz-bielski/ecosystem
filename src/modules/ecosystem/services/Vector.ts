@@ -4,6 +4,7 @@ import { getRange } from '@/modules/ecosystem/services/constrain';
 
 export class Vector {
     public static fromCoords(coords: Coords) {
+        // get clear object without any proxies
         const { x, y }: Coords = { ...coords };
 
         return new Vector(x, y);
@@ -11,6 +12,7 @@ export class Vector {
 
     public static randomWithinRange(step: number | number[]) {
         const [min, max] = getRange(step);
+
         return new Vector(getRand(min, max), getRand(min, max));
     }
 
@@ -30,6 +32,10 @@ export class Vector {
 
     public div(n: number) {
         return new Vector(this.x / n, this.y / n);
+    }
+
+    public heading() {
+        return Math.atan2(this.y, this.x);
     }
 
     public clear() {

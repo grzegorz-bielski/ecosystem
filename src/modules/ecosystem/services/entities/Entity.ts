@@ -28,9 +28,13 @@ export abstract class Entity implements IEntity {
         this.location = new Vector(x, y);
         this.velocity = new Vector(0, 0);
         this.acceleration = new Vector(0, 0);
+    }
 
-        // this.angle = 0;
-        // this.this.ngVelocity -
+    // simplified attraction force near massive objects and short distances
+    public applyGravity(G = worldG) {
+        const gravity = new Vector(0, G * this.options.variables.mass);
+
+        return this.applyForce(gravity);
     }
 
     // attraction force near not massive objects and long distances
@@ -43,13 +47,6 @@ export abstract class Entity implements IEntity {
         const attraction = dir.normalize().mult(-strength);
 
         return this.applyForce(attraction);
-    }
-
-    // simplified attraction force near massive objects and short distances
-    public applyGravity(G = worldG) {
-        const gravity = new Vector(0, G * this.options.variables.mass);
-
-        return this.applyForce(gravity);
     }
 
     // fluid drag force
@@ -78,6 +75,15 @@ export abstract class Entity implements IEntity {
             .mult(frictionMag);
 
         return this.applyForce(friction);
+    }
+
+    public applyMouseDirection(cursor: Vector, scale = 0.5) {
+        const dir = cursor
+            .sub(this.location)
+            .normalize()
+            .mult(scale);
+
+        return this.applyForce(dir);
     }
 
     // change currect acceleration based on mass and given force

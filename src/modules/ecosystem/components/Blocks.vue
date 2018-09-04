@@ -10,6 +10,9 @@
        <li>
            <ForceBlockTwo/>
        </li>
+        <li>
+           <AngularOne/>
+       </li>
    </ul>
   </div>
 </template>
@@ -19,12 +22,14 @@ import { Component, Vue } from 'vue-property-decorator';
 import ForceBlockOne from '@/modules/ecosystem/components/ForceBlockOne.vue';
 import ForceBlockTwo from '@/modules/ecosystem/components/ForceBlockTwo.vue';
 import RandomBlock from '@/modules/ecosystem/components/RandomBlock.vue';
+import AngularOne from '@/modules/ecosystem/components/AngularOne.vue';
 
 @Component({
     components: {
         RandomBlock,
         ForceBlockOne,
         ForceBlockTwo,
+        AngularOne,
     },
 })
 export default class Blocks extends Vue {}
