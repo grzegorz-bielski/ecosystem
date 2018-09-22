@@ -7,14 +7,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Vector } from '@/modules/ecosystem/services/Vector';
-import { getRand } from '@/modules/ecosystem/services/random';
+
 import { RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
-import { animete } from '@/modules/ecosystem/services/animete';
-import { Mover } from '@/modules/ecosystem/services/entities/Mover';
-import { Liquid } from '@/modules/ecosystem/services/entities/Liquid';
-import { Stream } from '@/modules/ecosystem/services/entities/Stream';
-import { Ground } from '@/modules/ecosystem/services/entities/Ground';
+import { animate, getRand } from '@/modules/ecosystem/helpers';
+import { Vector } from '@/modules/ecosystem/services/Vector';
+import { Liquid, Stream, Ground, Mover } from '@/modules/ecosystem/services/entities';
 
 @Component
 export default class ForceBlockOne extends Vue {
@@ -66,7 +63,7 @@ export default class ForceBlockOne extends Vue {
             });
         };
 
-        animete(frame);
+        animate(frame);
     }
 }
 </script>

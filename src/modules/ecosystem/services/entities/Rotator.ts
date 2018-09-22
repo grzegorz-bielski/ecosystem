@@ -1,6 +1,6 @@
 import { IEntity, Renderer, RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
-import { Entity } from '@/modules/ecosystem/services/entities/Entity';
-import { constrain } from '@/modules/ecosystem/services/constrain';
+import { constrain } from '@/modules/ecosystem/helpers';
+import { Entity } from './Entity';
 
 export class Rotator extends Entity implements IEntity {
     constructor(
@@ -35,20 +35,13 @@ export class Rotator extends Entity implements IEntity {
     }
 
     public render() {
-        const angle = this.velocity.heading();
-
-        // console.log(angle);
+        const theta = this.velocity.heading();
 
         this.renderer.save();
+
         this.renderer.translate(this.location.x, this.location.y);
-        this.renderer.rotate(angle);
-        // this.renderer.restore();
+        this.renderer.rotate(theta);
         this.renderer.fillRect(0, 0, this.options.variables.width, this.options.variables.height);
-        // this.renderer.translate(
-        //     -this.options.container.width / 2,
-        //     -this.options.container.height / 2,
-        // );
-        // super.render();
 
         this.renderer.restore();
 
@@ -62,10 +55,10 @@ export class Rotator extends Entity implements IEntity {
         this.location = location.add(velocity);
         this.acceleration = acceleration.clear();
 
-        // this.ngAcceleration = this.acceleration.x / 10;
-        // this.ngVelocity += ngAcceleration;
-        // this.angle += constrain(ngVelocity, 0.1);
-        // this.ngAcceleration = 0;
+        this.ngAcceleration = this.acceleration.x / 10;
+        this.ngVelocity += ngAcceleration;
+        this.theta += constrain(ngVelocity, 0.1);
+        this.ngAcceleration = 0;
 
         return super.update();
     }

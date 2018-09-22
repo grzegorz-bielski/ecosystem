@@ -1,7 +1,7 @@
 import { Renderer, IEntity, RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
 import { Vector } from '@/modules/ecosystem/services/Vector';
-import { Entity } from '@/modules/ecosystem/services/entities/Entity';
-import { getRand } from '@/modules/ecosystem/services/random';
+import { getRand } from '@/modules/ecosystem/helpers';
+import { Entity } from './Entity';
 
 // TODO: add tendency that's gets bigger when mouse is closer
 export class Walker extends Entity implements IEntity {

@@ -1,5 +1,5 @@
 import { Renderer, IEntity, RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
-import { Entity } from '@/modules/ecosystem/services/entities/Entity';
+import { Entity } from './Entity';
 
 export class Liquid extends Entity implements IEntity {
     constructor(renderer: Renderer, width: number, height: number, x: number, y: number) {

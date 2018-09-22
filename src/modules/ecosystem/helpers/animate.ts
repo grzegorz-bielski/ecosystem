@@ -3,7 +3,7 @@ import { Update } from '@/modules/ecosystem/models/ecosystemModels';
 const timestamp = () =>
     window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
 
-export const animete = (update: Update) => {
+export const animate = (update: Update) => {
     let now;
     let delta;
     let last = timestamp();

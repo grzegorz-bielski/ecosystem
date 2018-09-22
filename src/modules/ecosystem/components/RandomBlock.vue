@@ -7,11 +7,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+
 import { RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
-import { Vector } from '@/modules/ecosystem/services/Vector';
-import { Walker } from '@/modules/ecosystem/services/entities/Walker';
-import { animete } from '@/modules/ecosystem/services/animete';
-import { getMouseVector } from '@/modules/ecosystem/services/getMouseVector';
+import { Vector } from '@/modules/ecosystem/services';
+import { Walker } from '@/modules/ecosystem/services/entities';
+import { getMouseVector, animate } from '@/modules/ecosystem/helpers';
 
 @Component
 export default class RandomBlock extends Vue {
@@ -30,7 +30,7 @@ export default class RandomBlock extends Vue {
 
         this.walker = new Walker(ctx, this.canvas, this.canvas.width / 2, this.canvas.height / 2);
 
-        animete(() => this.walker.update().render());
+        animate(() => this.walker.update().render());
     }
 
     public mouseMove(e: MouseEvent) {

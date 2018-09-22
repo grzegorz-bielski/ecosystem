@@ -7,10 +7,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+
 import { Vector } from '@/modules/ecosystem/services/Vector';
-import { getRand } from '@/modules/ecosystem/services/random';
-import { animete } from '@/modules/ecosystem/services/animete';
-import { Mover } from '@/modules/ecosystem/services/entities/Mover';
+import { Mover } from '@/modules/ecosystem/services/entities';
+import { getRand, animate } from '@/modules/ecosystem/helpers';
 
 @Component
 export default class ForceBlockOne extends Vue {
@@ -50,7 +50,7 @@ export default class ForceBlockOne extends Vue {
             });
         };
 
-        animete(frame);
+        animate(frame);
     }
 }
 </script>

@@ -8,9 +8,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Vector } from '@/modules/ecosystem/services/Vector';
-import { animete } from '@/modules/ecosystem/services/animete';
-import { Rotator } from '@/modules/ecosystem/services/entities/Rotator';
-import { getMouseVector } from '@/modules/ecosystem/services/getMouseVector';
+// import { animete } from '@/modules/ecosystem/helpers/animete';
+import { Rotator } from '@/modules/ecosystem/services/entities';
+import { getMouseVector, animate } from '@/modules/ecosystem/helpers';
 
 @Component
 export default class ForceBlockOne extends Vue {
@@ -39,7 +39,7 @@ export default class ForceBlockOne extends Vue {
                 .render();
         };
 
-        animete(frame);
+        animate(frame);
     }
 
     public mouseMove(e: MouseEvent) {

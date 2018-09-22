@@ -1,5 +1,5 @@
 import { IEntity, Renderer, RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
-import { Entity } from '@/modules/ecosystem/services/entities/Entity';
+import { Entity } from './Entity';
 
 export class Mover extends Entity implements IEntity {
     constructor(
@@ -9,13 +9,14 @@ export class Mover extends Entity implements IEntity {
         size: number,
         x: number,
         y: number,
+        renderType: RenderTypes = RenderTypes.Circle,
     ) {
         super(
             renderer,
             {
                 checkEdges: true,
                 topSpeed: Infinity,
-                type: RenderTypes.Circle,
+                type: renderType,
                 color: 'black',
                 constants: {
                     frictionCoefficient: 0.1,
@@ -41,7 +42,7 @@ export class Mover extends Entity implements IEntity {
         this.acceleration = acceleration.clear();
 
         this.ngVelocity += ngAcceleration;
-        this.angle += ngVelocity;
+        this.theta += ngVelocity;
         this.ngAcceleration = 0;
 
         return super.update();

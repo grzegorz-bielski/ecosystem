@@ -1,6 +1,5 @@
 import { Coords } from '@/modules/ecosystem/models/ecosystemModels';
-import { getRand } from '@/modules/ecosystem/services/random';
-import { getRange } from '@/modules/ecosystem/services/constrain';
+import { getRand, getRange } from '@/modules/ecosystem/helpers';
 
 export class Vector {
     public static fromCoords(coords: Coords) {

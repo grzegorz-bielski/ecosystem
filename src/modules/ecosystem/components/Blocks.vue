@@ -1,7 +1,7 @@
 <template>
   <div>
    <ul>
-       <li>
+       <!-- <li>
            <RandomBlock/>
        </li>
        <li>
@@ -9,9 +9,12 @@
        </li>
        <li>
            <ForceBlockTwo/>
-       </li>
-        <li>
+       </li> -->
+        <!-- <li>
            <AngularOne/>
+       </li> -->
+       <li>
+           <Asteroids/>
        </li>
    </ul>
   </div>
@@ -19,10 +22,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+
 import ForceBlockOne from '@/modules/ecosystem/components/ForceBlockOne.vue';
 import ForceBlockTwo from '@/modules/ecosystem/components/ForceBlockTwo.vue';
 import RandomBlock from '@/modules/ecosystem/components/RandomBlock.vue';
 import AngularOne from '@/modules/ecosystem/components/AngularOne.vue';
+import Asteroids from '@/modules/ecosystem/components/Asteroids.vue';
 
 @Component({
     components: {
@@ -30,6 +35,7 @@ import AngularOne from '@/modules/ecosystem/components/AngularOne.vue';
         ForceBlockOne,
         ForceBlockTwo,
         AngularOne,
+        Asteroids,
     },
 })
 export default class Blocks extends Vue {}

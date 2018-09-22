@@ -4,8 +4,9 @@ import {
     RenderTypes,
     IEntity,
 } from '@/modules/ecosystem/models/ecosystemModels';
+
 import { Vector } from '@/modules/ecosystem/services/Vector';
-import { constrain } from '@/modules/ecosystem/services/constrain';
+import { constrain } from '@/modules/ecosystem/helpers';
 
 // real: 6.67428e-11
 const worldG = 0.1;
@@ -15,7 +16,7 @@ export abstract class Entity implements IEntity {
     protected velocity: Vector;
     protected acceleration: Vector;
 
-    protected angle: number = 0;
+    protected theta: number = 0;
     protected ngVelocity: number = 0;
     protected ngAcceleration: number = 0;
 
