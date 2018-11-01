@@ -156,17 +156,48 @@ export abstract class Entity implements IEntity {
         const { location, options, renderer } = this;
 
         switch (type) {
-            case RenderTypes.Rect:
-                return renderer.fillRect(
+            case RenderTypes.Rect: {
+                renderer.fillRect(
                     location.x,
                     location.y,
                     options.variables.width,
                     options.variables.height,
                 );
+
+                return;
+            }
             case RenderTypes.Circle: {
                 renderer.beginPath();
                 renderer.arc(location.x, location.y, options.variables.width / 2, 0, 2 * Math.PI);
                 renderer.fill();
+
+                return;
+            }
+            case RenderTypes.Triangle: {
+                renderer.fillStyle = 'red';
+                renderer.fillRect(
+                    location.x,
+                    location.y,
+                    options.variables.width,
+                    options.variables.height,
+                );
+
+                const delta = Math.abs(location.x - options.variables.width);
+
+                renderer.beginPath();
+                renderer.moveTo(location.x, location.y);
+                renderer.lineTo(location.x, options.variables.width);
+                renderer.lineTo(options.variables.width, options.variables.width);
+                renderer.lineTo(location.x, location.y);
+                renderer.closePath();
+
+                // renderer.lineWidth = 1;
+                // renderer.strokeStyle = '#666666';
+                // renderer.stroke();
+
+                renderer.fillStyle = '#FFCC00';
+                renderer.fill();
+
                 return;
             }
         }

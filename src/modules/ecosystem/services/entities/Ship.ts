@@ -1,8 +1,7 @@
 import { IEntity, Renderer, RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
-import { constrain } from '@/modules/ecosystem/helpers';
 import { Entity } from './Entity';
 
-export class Rotator extends Entity implements IEntity {
+export class Ship extends Entity implements IEntity {
     constructor(
         renderer: Renderer,
         container: HTMLCanvasElement,
@@ -10,13 +9,14 @@ export class Rotator extends Entity implements IEntity {
         size: number,
         x: number,
         y: number,
+        renderType: RenderTypes = RenderTypes.Triangle,
     ) {
         super(
             renderer,
             {
                 checkEdges: true,
                 topSpeed: Infinity,
-                type: RenderTypes.Rect,
+                type: renderType,
                 color: 'black',
                 constants: {
                     frictionCoefficient: 0.1,
@@ -34,20 +34,6 @@ export class Rotator extends Entity implements IEntity {
         );
     }
 
-    public render() {
-        const theta = this.velocity.heading();
-
-        this.renderer.save();
-
-        this.renderer.translate(this.location.x, this.location.y);
-        this.renderer.rotate(theta);
-        this.renderer.fillRect(0, 0, this.options.variables.width, this.options.variables.height);
-
-        this.renderer.restore();
-
-        return this;
-    }
-
     public update() {
         const { location, velocity, acceleration, options, ngAcceleration, ngVelocity } = this;
 
@@ -55,10 +41,9 @@ export class Rotator extends Entity implements IEntity {
         this.location = location.add(velocity);
         this.acceleration = acceleration.clear();
 
-        this.ngAcceleration = this.acceleration.x / 10;
         this.ngVelocity += ngAcceleration;
-        this.theta += constrain(ngVelocity, 0.1);
-        // this.ngAcceleration = 0;
+        this.theta += ngVelocity;
+        this.ngAcceleration = 0;
 
         return super.update();
     }

@@ -4,7 +4,7 @@ import { getRand, getRange } from '@/modules/ecosystem/helpers';
 export class Vector {
     public static fromCoords(coords: Coords) {
         // get clear object without any proxies
-        const { x, y }: Coords = { ...coords };
+        const { x, y } = { ...coords };
 
         return new Vector(x, y);
     }
@@ -16,6 +16,11 @@ export class Vector {
     }
 
     constructor(public x: number, public y: number) {}
+
+    public *[Symbol.iterator]() {
+        yield this.x;
+        yield this.y;
+    }
 
     public add(v: Vector) {
         return new Vector(this.x + v.x, this.y + v.y);

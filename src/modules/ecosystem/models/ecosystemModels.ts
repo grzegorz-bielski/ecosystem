@@ -7,9 +7,10 @@ export interface Coords {
     y: number;
 }
 
-export enum RenderTypes {
-    Rect = 'rect',
-    Circle = 'circle',
+export const enum RenderTypes {
+    Rect,
+    Circle,
+    Triangle,
 }
 
 interface PhysicsConstants {

@@ -9,12 +9,15 @@
        </li>
        <li>
            <ForceBlockTwo/>
-       </li> -->
-        <!-- <li>
+       </li>
+        <li>
            <AngularOne/>
        </li> -->
-       <li>
+       <!-- <li>
            <Asteroids/>
+       </li> -->
+       <li>
+           <AsteroidsTwo/>
        </li>
    </ul>
   </div>
@@ -28,6 +31,7 @@ import ForceBlockTwo from '@/modules/ecosystem/components/ForceBlockTwo.vue';
 import RandomBlock from '@/modules/ecosystem/components/RandomBlock.vue';
 import AngularOne from '@/modules/ecosystem/components/AngularOne.vue';
 import Asteroids from '@/modules/ecosystem/components/Asteroids.vue';
+import AsteroidsTwo from '@/modules/ecosystem/components/AsteroidsTwo.vue';
 
 @Component({
     components: {
@@ -36,6 +40,7 @@ import Asteroids from '@/modules/ecosystem/components/Asteroids.vue';
         ForceBlockTwo,
         AngularOne,
         Asteroids,
+        AsteroidsTwo,
     },
 })
 export default class Blocks extends Vue {}
@@ -46,9 +51,13 @@ ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
+    margin: 0;
+    padding: 0;
 }
 li {
     list-style-type: none;
-    margin: 1rem;
+    margin: 1rem 0;
+    width: 100%;
 }
 </style>
