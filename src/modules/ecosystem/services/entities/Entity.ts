@@ -174,26 +174,18 @@ export abstract class Entity implements IEntity {
                 return;
             }
             case RenderTypes.Triangle: {
-                renderer.fillStyle = 'red';
-                renderer.fillRect(
-                    location.x,
-                    location.y,
-                    options.variables.width,
-                    options.variables.height,
+                // const delta = Math.abs(location.x - options.variables.width);
+
+                const cornerA = location.add(
+                    new Vector(options.variables.width, options.variables.width / 3),
+                );
+                const cornerB = location.add(
+                    new Vector(options.variables.width, -options.variables.width / 3),
                 );
 
-                const delta = Math.abs(location.x - options.variables.width);
-
-                renderer.beginPath();
-                renderer.moveTo(location.x, location.y);
-                renderer.lineTo(location.x, options.variables.width);
-                renderer.lineTo(options.variables.width, options.variables.width);
-                renderer.lineTo(location.x, location.y);
-                renderer.closePath();
-
-                // renderer.lineWidth = 1;
-                // renderer.strokeStyle = '#666666';
-                // renderer.stroke();
+                renderer.moveTo(this.location.x, this.location.y);
+                renderer.lineTo(cornerA.x, cornerA.y);
+                renderer.lineTo(cornerB.x, cornerB.y);
 
                 renderer.fillStyle = '#FFCC00';
                 renderer.fill();

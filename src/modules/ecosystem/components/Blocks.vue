@@ -1,26 +1,9 @@
 <template>
-  <div>
-   <ul>
-       <!-- <li>
-           <RandomBlock/>
-       </li>
-       <li>
-           <ForceBlockOne/>
-       </li>
-       <li>
-           <ForceBlockTwo/>
-       </li>
-        <li>
-           <AngularOne/>
-       </li> -->
-       <!-- <li>
-           <Asteroids/>
-       </li> -->
-       <li>
-           <AsteroidsTwo/>
-       </li>
-   </ul>
-  </div>
+
+  <Asteroids/>
+   <!-- <RandomBlock/>
+   <ForceBlockOne/>
+    <AngularOne/> -->
 </template>
 
 <script lang="ts">

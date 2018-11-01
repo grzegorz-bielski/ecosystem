@@ -39,9 +39,7 @@ export default class Triangle extends Vue {
             return;
         }
         const { ctx, canvas, canvasSizes: { width, height } } = this.canvasProps;
-        if (!ctx) {
-            return;
-        }
+
         this.ship = new Ship(ctx, canvas, getRand(1, 5), 15, width / 2, height / 2);
         const frame = () => {
             ctx.clearRect(0, 0, width, height);
