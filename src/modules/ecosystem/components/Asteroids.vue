@@ -1,5 +1,12 @@
 <template>
-    <div class="canvas-wrapper" tabindex="0" @keyup.left="handleLeftRotate" @keyup.right="handleRightRotate">
+    <div 
+        class="canvas-wrapper" 
+        tabindex="0"
+
+        @keydown.left="handleLeftRotate" 
+        @keydown.right="handleRightRotate"
+        @keydown.space="handleThrust"
+    >
         <canvas 
             class="canvas" 
             ref="block"
@@ -33,33 +40,41 @@ export default class Asteroids extends Vue {
     };
 
     public handleLeftRotate(e: KeyboardEvent) {
-        // console.log(e);
+        this.ship.rotate(0.08);
     }
 
     public handleRightRotate(e: KeyboardEvent) {
-        // console.log(e);
+        this.ship.rotate(-0.08);
     }
 
-    public handleRotate(e: KeyboardEvent) {
-        // console.log(e);
+    public handleThrust() {
+        this.ship.thrust(1);
     }
 
     public mounted() {
         this.canvas = this.$refs.block as HTMLCanvasElement;
         const ctx = this.canvas.getContext('2d');
 
-        // console.log('called');
-
         if (!ctx) {
             return;
         }
 
-        const { width, height } = this.canvasSizes;
-
-        this.ship = new Ship(ctx, this.canvas, getRand(1, 5), 30, width / 2, height / 2);
+        this.ship = new Ship(
+            ctx,
+            this.canvas,
+            getRand(1, 5),
+            100,
+            this.canvasSizes.width / 2,
+            this.canvasSizes.height / 2,
+        );
 
         const frame = () => {
-            ctx.clearRect(0, 0, width, height);
+            // clear
+            ctx.save();
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            ctx.restore();
+
             ctx.fillStyle = 'red';
             ctx.fillRect(this.canvasSizes.width / 2, this.canvasSizes.height / 2, 10, 10);
 

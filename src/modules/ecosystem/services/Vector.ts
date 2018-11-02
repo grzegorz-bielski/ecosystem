@@ -9,6 +9,13 @@ export class Vector {
         return new Vector(x, y);
     }
 
+    public static fromPolar(r: number, theta: number) {
+        const x = r * Math.cos(theta);
+        const y = r * Math.sin(theta);
+
+        return new Vector(x, y);
+    }
+
     public static randomWithinRange(step: number | number[]) {
         const [min, max] = getRange(step);
 

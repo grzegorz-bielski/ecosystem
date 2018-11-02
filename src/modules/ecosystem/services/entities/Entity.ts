@@ -195,3 +195,15 @@ export abstract class Entity implements IEntity {
         }
     }
 }
+
+function renderTriangle(ctx: CanvasRenderingContext2D, size: number, location: Vector) {
+    const cornerA = location.add(new Vector(size, size / 3));
+    const cornerB = location.add(new Vector(size, -size / 3));
+
+    ctx.moveTo(location.x, location.y);
+    ctx.lineTo(cornerA.x, cornerA.y);
+    ctx.lineTo(cornerB.x, cornerB.y);
+
+    ctx.fillStyle = '#FFCC00';
+    ctx.fill();
+}

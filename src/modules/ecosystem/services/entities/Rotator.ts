@@ -58,7 +58,6 @@ export class Rotator extends Entity implements IEntity {
         this.ngAcceleration = this.acceleration.x / 10;
         this.ngVelocity += ngAcceleration;
         this.theta += constrain(ngVelocity, 0.1);
-        // this.ngAcceleration = 0;
 
         return super.update();
     }
