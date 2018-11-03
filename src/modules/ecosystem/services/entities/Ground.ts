@@ -1,4 +1,5 @@
-import { IEntity, Renderer, RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
+import { IEntity, Renderer } from '@/modules/ecosystem/models/ecosystemModels';
+import { Rect } from '@/modules/ecosystem/services/shapes';
 import { Entity } from './Entity';
 
 export class Ground extends Entity implements IEntity {
@@ -8,7 +9,6 @@ export class Ground extends Entity implements IEntity {
             {
                 checkEdges: false,
                 topSpeed: Infinity,
-                type: RenderTypes.Rect,
                 color: 'brown',
                 constants: {
                     frictionCoefficient: 0.1,
@@ -24,6 +24,7 @@ export class Ground extends Entity implements IEntity {
                     height: 0,
                 },
             },
+            new Rect(renderer),
             x,
             y,
         );

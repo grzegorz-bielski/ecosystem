@@ -1,5 +1,6 @@
-import { IEntity, Renderer, RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
+import { IEntity, Renderer } from '@/modules/ecosystem/models/ecosystemModels';
 import { Entity } from './Entity';
+import { Circle } from '@/modules/ecosystem/services/shapes';
 
 export class Mover extends Entity implements IEntity {
     constructor(
@@ -9,14 +10,12 @@ export class Mover extends Entity implements IEntity {
         size: number,
         x: number,
         y: number,
-        renderType: RenderTypes = RenderTypes.Circle,
     ) {
         super(
             renderer,
             {
                 checkEdges: true,
                 topSpeed: Infinity,
-                type: renderType,
                 color: 'black',
                 constants: {
                     frictionCoefficient: 0.1,
@@ -29,6 +28,7 @@ export class Mover extends Entity implements IEntity {
                 },
                 container,
             },
+            new Circle(renderer),
             x,
             y,
         );

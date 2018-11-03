@@ -1,9 +1,4 @@
-import {
-    Renderer,
-    Options,
-    RenderTypes,
-    IEntity,
-} from '@/modules/ecosystem/models/ecosystemModels';
+import { Renderer, Options, Shape, IEntity } from '@/modules/ecosystem/models/ecosystemModels';
 
 import { Vector } from '@/modules/ecosystem/services/Vector';
 import { constrain } from '@/modules/ecosystem/helpers';
@@ -13,8 +8,8 @@ const worldG = 0.1;
 
 export abstract class Entity implements IEntity {
     protected location: Vector;
-    protected velocity: Vector;
-    protected acceleration: Vector;
+    protected velocity = new Vector(0, 0);
+    protected acceleration = new Vector(0, 0);
 
     protected theta: number = 0;
     protected ngVelocity: number = 0;
@@ -23,12 +18,11 @@ export abstract class Entity implements IEntity {
     constructor(
         protected readonly renderer: Renderer,
         protected readonly options: Options,
+        protected readonly shape: Shape,
         x: number,
         y: number,
     ) {
         this.location = new Vector(x, y);
-        this.velocity = new Vector(0, 0);
-        this.acceleration = new Vector(0, 0);
     }
 
     // simplified attraction force near massive objects and short distances
@@ -105,10 +99,13 @@ export abstract class Entity implements IEntity {
     }
 
     public render() {
-        const { options } = this;
-
-        this.renderer.fillStyle = this.options.color;
-        this.renderEntity(options.type);
+        this.shape.render({
+            color: this.options.color,
+            location: this.location,
+            width: this.options.variables.width,
+            height: this.options.variables.height,
+            theta: this.theta,
+        });
 
         return this;
     }
@@ -151,59 +148,4 @@ export abstract class Entity implements IEntity {
             this.location.y = 0;
         }
     }
-
-    private renderEntity(type: RenderTypes) {
-        const { location, options, renderer } = this;
-
-        switch (type) {
-            case RenderTypes.Rect: {
-                renderer.fillRect(
-                    location.x,
-                    location.y,
-                    options.variables.width,
-                    options.variables.height,
-                );
-
-                return;
-            }
-            case RenderTypes.Circle: {
-                renderer.beginPath();
-                renderer.arc(location.x, location.y, options.variables.width / 2, 0, 2 * Math.PI);
-                renderer.fill();
-
-                return;
-            }
-            case RenderTypes.Triangle: {
-                // const delta = Math.abs(location.x - options.variables.width);
-
-                const cornerA = location.add(
-                    new Vector(options.variables.width, options.variables.width / 3),
-                );
-                const cornerB = location.add(
-                    new Vector(options.variables.width, -options.variables.width / 3),
-                );
-
-                renderer.moveTo(this.location.x, this.location.y);
-                renderer.lineTo(cornerA.x, cornerA.y);
-                renderer.lineTo(cornerB.x, cornerB.y);
-
-                renderer.fillStyle = '#FFCC00';
-                renderer.fill();
-
-                return;
-            }
-        }
-    }
-}
-
-function renderTriangle(ctx: CanvasRenderingContext2D, size: number, location: Vector) {
-    const cornerA = location.add(new Vector(size, size / 3));
-    const cornerB = location.add(new Vector(size, -size / 3));
-
-    ctx.moveTo(location.x, location.y);
-    ctx.lineTo(cornerA.x, cornerA.y);
-    ctx.lineTo(cornerB.x, cornerB.y);
-
-    ctx.fillStyle = '#FFCC00';
-    ctx.fill();
 }

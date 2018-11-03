@@ -1,5 +1,6 @@
-import { IEntity, Renderer, RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
+import { IEntity, Renderer } from '@/modules/ecosystem/models/ecosystemModels';
 import { Entity } from './Entity';
+import { Rect } from '@/modules/ecosystem/services/shapes';
 
 export class Stream extends Entity implements IEntity {
     constructor(renderer: Renderer, width: number, height: number, x: number, y: number) {
@@ -8,7 +9,6 @@ export class Stream extends Entity implements IEntity {
             {
                 checkEdges: true,
                 topSpeed: Infinity,
-                type: RenderTypes.Rect,
                 color: '#e7f6ff',
                 constants: {
                     frictionCoefficient: 0.1,
@@ -24,6 +24,7 @@ export class Stream extends Entity implements IEntity {
                     height: 0,
                 },
             },
+            new Rect(renderer),
             x,
             y,
         );

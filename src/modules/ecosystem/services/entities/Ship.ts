@@ -1,4 +1,5 @@
-import { IEntity, Renderer, RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
+import { IEntity, Renderer } from '@/modules/ecosystem/models/ecosystemModels';
+import { Triangle } from '@/modules/ecosystem/services/shapes';
 import { Vector } from '@/modules/ecosystem/services/Vector';
 import { Entity } from './Entity';
 
@@ -7,29 +8,29 @@ export class Ship extends Entity implements IEntity {
         renderer: Renderer,
         container: HTMLCanvasElement,
         mass: number,
-        size: number,
+        width: number,
+        height: number,
         x: number,
         y: number,
-        renderType: RenderTypes = RenderTypes.Triangle,
     ) {
         super(
             renderer,
             {
                 checkEdges: true,
                 topSpeed: Infinity,
-                type: renderType,
-                color: 'black',
+                color: '#FFCC00',
                 constants: {
                     frictionCoefficient: 0.1,
                     dragCoefficient: 0.01,
                 },
                 variables: {
                     mass,
-                    width: size,
-                    height: size,
+                    width,
+                    height,
                 },
                 container,
             },
+            new Triangle(renderer),
             x,
             y,
         );
@@ -60,34 +61,5 @@ export class Ship extends Entity implements IEntity {
         this.acceleration = acceleration.clear();
 
         return super.update();
-    }
-
-    public render() {
-        const { location, options, renderer, theta } = this;
-
-        const cornerA = new Vector(options.variables.width, options.variables.width / 3);
-        const cornerB = new Vector(options.variables.width, -options.variables.width / 3);
-
-        this.renderer.save();
-
-        // rotation
-        this.renderer.translate(location.x, location.y);
-        this.renderer.rotate(theta);
-
-        // triangle
-        renderer.beginPath();
-        renderer.moveTo(0, 0);
-        renderer.lineTo(cornerA.x, cornerA.y);
-        renderer.lineTo(cornerB.x, cornerB.y);
-        renderer.closePath();
-        renderer.fill();
-
-        this.renderer.restore();
-
-        // style
-        renderer.fillStyle = '#FFCC00';
-        renderer.fill();
-
-        return this;
     }
 }

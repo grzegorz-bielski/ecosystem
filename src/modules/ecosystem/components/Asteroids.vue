@@ -19,32 +19,27 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-import CanvasResponsive from '@/modules/ecosystem/components/CanvasResponsive.vue';
-
 import { Vector } from '@/modules/ecosystem/services/Vector';
 import { getRand, animate } from '@/modules/ecosystem/helpers';
 import { RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
 import { Ship } from '@/modules/ecosystem/services/entities';
 
-@Component({
-    components: {
-        CanvasResponsive,
-    },
-})
+@Component
 export default class Asteroids extends Vue {
     private ship!: Ship;
     private canvas!: HTMLCanvasElement;
+    private rotationStep = 0.23;
     private canvasSizes = {
         width: 800,
         height: 600,
     };
 
     public handleLeftRotate(e: KeyboardEvent) {
-        this.ship.rotate(0.08);
+        this.ship.rotate(-this.rotationStep);
     }
 
     public handleRightRotate(e: KeyboardEvent) {
-        this.ship.rotate(-0.08);
+        this.ship.rotate(this.rotationStep);
     }
 
     public handleThrust() {
@@ -63,7 +58,8 @@ export default class Asteroids extends Vue {
             ctx,
             this.canvas,
             getRand(1, 5),
-            100,
+            20,
+            30,
             this.canvasSizes.width / 2,
             this.canvasSizes.height / 2,
         );

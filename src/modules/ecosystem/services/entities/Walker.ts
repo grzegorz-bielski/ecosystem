@@ -2,8 +2,8 @@ import { Renderer, IEntity, RenderTypes } from '@/modules/ecosystem/models/ecosy
 import { Vector } from '@/modules/ecosystem/services/Vector';
 import { getRand } from '@/modules/ecosystem/helpers';
 import { Entity } from './Entity';
+import { Rect } from '@/modules/ecosystem/services/shapes';
 
-// TODO: add tendency that's gets bigger when mouse is closer
 export class Walker extends Entity implements IEntity {
     private readonly step: number = 1.5;
     private readonly tendencyProbability: number = 0.2;
@@ -16,7 +16,6 @@ export class Walker extends Entity implements IEntity {
                 checkEdges: true,
                 topSpeed: 10,
                 color: 'black',
-                type: RenderTypes.Rect,
                 constants: {
                     frictionCoefficient: 0.1,
                     dragCoefficient: 0.01,
@@ -28,6 +27,7 @@ export class Walker extends Entity implements IEntity {
                 },
                 container,
             },
+            new Rect(renderer),
             x,
             y,
         );

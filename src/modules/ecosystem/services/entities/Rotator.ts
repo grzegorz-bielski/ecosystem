@@ -1,5 +1,6 @@
-import { IEntity, Renderer, RenderTypes } from '@/modules/ecosystem/models/ecosystemModels';
+import { IEntity, Renderer } from '@/modules/ecosystem/models/ecosystemModels';
 import { constrain } from '@/modules/ecosystem/helpers';
+import { Rect } from '@/modules/ecosystem/services/shapes';
 import { Entity } from './Entity';
 
 export class Rotator extends Entity implements IEntity {
@@ -16,7 +17,6 @@ export class Rotator extends Entity implements IEntity {
             {
                 checkEdges: true,
                 topSpeed: Infinity,
-                type: RenderTypes.Rect,
                 color: 'black',
                 constants: {
                     frictionCoefficient: 0.1,
@@ -29,6 +29,7 @@ export class Rotator extends Entity implements IEntity {
                 },
                 container,
             },
+            new Rect(renderer),
             x,
             y,
         );

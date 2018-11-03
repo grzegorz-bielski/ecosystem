@@ -14,7 +14,6 @@ import ForceBlockTwo from '@/modules/ecosystem/components/ForceBlockTwo.vue';
 import RandomBlock from '@/modules/ecosystem/components/RandomBlock.vue';
 import AngularOne from '@/modules/ecosystem/components/AngularOne.vue';
 import Asteroids from '@/modules/ecosystem/components/Asteroids.vue';
-import AsteroidsTwo from '@/modules/ecosystem/components/AsteroidsTwo.vue';
 
 @Component({
     components: {
@@ -23,7 +22,6 @@ import AsteroidsTwo from '@/modules/ecosystem/components/AsteroidsTwo.vue';
         ForceBlockTwo,
         AngularOne,
         Asteroids,
-        AsteroidsTwo,
     },
 })
 export default class Blocks extends Vue {}
