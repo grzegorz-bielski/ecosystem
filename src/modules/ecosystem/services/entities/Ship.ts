@@ -18,7 +18,7 @@ export class Ship extends Entity implements IEntity {
             {
                 checkEdges: true,
                 topSpeed: Infinity,
-                color: '#FFCC00',
+                color: '#FFF',
                 constants: {
                     frictionCoefficient: 0.1,
                     dragCoefficient: 0.01,

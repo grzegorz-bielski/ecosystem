@@ -1,9 +1,10 @@
 <template>
 
   <Asteroids/>
-   <!-- <RandomBlock/>
-   <ForceBlockOne/>
-    <AngularOne/> -->
+   <!-- <RandomBlock/> -->
+   <!-- <ForceBlockOne/> -->
+   <!-- <ForceBlockTwo/> -->
+    <!-- <AngularOne/> -->
 </template>
 
 <script lang="ts">

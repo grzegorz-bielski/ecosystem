@@ -13,7 +13,7 @@ import { Mover } from '@/modules/ecosystem/services/entities';
 import { getRand, animate } from '@/modules/ecosystem/helpers';
 
 @Component
-export default class ForceBlockOne extends Vue {
+export default class ForceBlockTwo extends Vue {
     private readonly name = 'Mover';
     private strategy = 'Force 2';
     private canvas!: HTMLCanvasElement;

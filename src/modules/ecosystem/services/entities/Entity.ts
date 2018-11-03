@@ -127,25 +127,45 @@ export abstract class Entity implements IEntity {
 
     // constrain entity to container boundries
     protected checkEdges() {
+        // bounce off edges
+
+        //     const {
+        //         options: { container },
+        //         location,
+        //     } = this;
+
+        //     if (location.x > container.width) {
+        //         this.location.x = container.width;
+        //         this.velocity.x *= -1;
+        //     } else if (location.x < 0) {
+        //         this.velocity.x *= -1;
+        //         this.location.x = 0;
+        //     }
+
+        //     if (location.y > container.height) {
+        //         this.velocity.y *= -1;
+        //         this.location.y = container.height;
+        //     } else if (location.y < 0) {
+        //         this.velocity.y *= -1;
+        //         this.location.y = 0;
+        //     }
+
+        // go to opposite side of screen
         const {
             options: { container },
             location,
         } = this;
 
         if (location.x > container.width) {
-            this.location.x = container.width;
-            this.velocity.x *= -1;
-        } else if (location.x < 0) {
-            this.velocity.x *= -1;
             this.location.x = 0;
+        } else if (location.x < 0) {
+            this.location.x = container.width;
         }
 
         if (location.y > container.height) {
-            this.velocity.y *= -1;
-            this.location.y = container.height;
-        } else if (location.y < 0) {
-            this.velocity.y *= -1;
             this.location.y = 0;
+        } else if (location.y < 0) {
+            this.location.y = container.height;
         }
     }
 }

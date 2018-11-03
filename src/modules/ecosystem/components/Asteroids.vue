@@ -6,6 +6,7 @@
         @keydown.left="handleLeftRotate" 
         @keydown.right="handleRightRotate"
         @keydown.space="handleThrust"
+        @click="handleThrust"
     >
         <canvas 
             class="canvas" 
@@ -54,35 +55,34 @@ export default class Asteroids extends Vue {
             return;
         }
 
-        this.ship = new Ship(
-            ctx,
-            this.canvas,
-            getRand(1, 5),
-            20,
-            30,
-            this.canvasSizes.width / 2,
-            this.canvasSizes.height / 2,
-        );
-
-        const frame = () => {
-            // clear
-            ctx.save();
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
-            ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            ctx.restore();
-
-            ctx.fillStyle = 'red';
-            ctx.fillRect(this.canvasSizes.width / 2, this.canvasSizes.height / 2, 10, 10);
-
-            this.ship.update().render();
-        };
-
-        animate(frame);
-
         this.$nextTick(() => {
             window.addEventListener('resize', this.setCanvasSize);
 
             this.setCanvasSize();
+
+            this.ship = new Ship(
+                ctx,
+                this.canvas,
+                getRand(1, 5),
+                20,
+                30,
+                this.canvasSizes.width / 2,
+                this.canvasSizes.height / 2,
+            );
+
+            const frame = () => {
+                ctx.save();
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                ctx.restore();
+
+                ctx.fillStyle = '#000';
+                ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+                this.ship.update().render();
+            };
+
+            animate(frame);
         });
     }
 
@@ -97,6 +97,9 @@ export default class Asteroids extends Vue {
 </script>
 
 <style scoped>
+.canvas {
+    display: block;
+}
 .canvas-wrapper {
     outline: none;
     width: 100%;
